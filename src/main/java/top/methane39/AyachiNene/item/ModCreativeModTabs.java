@@ -22,6 +22,7 @@ public class ModCreativeModTabs {
                         pOutput.accept(ModBlock.DETONATOR_BLOCK.get());
                         pOutput.accept(ModItem.RAMEN.get());
                         pOutput.accept(ModItem.KOKORO_KAKERA.get());
+                        pOutput.accept(ModItem.NENE_SPAWN_EGG.get());
 
                         pOutput.accept(ModBlock.DETONATOR_ORE.get());
                         pOutput.accept(ModItem.DETONATOR.get());

@@ -21,6 +21,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleItem(ModItem.DETONATOR_COMPONENT);
         simpleItem(ModItem.KOKORO_KAKERA);
         simpleItem(ModItem.RAMEN);
+
+        withExistingParent(ModItem.NENE_SPAWN_EGG.getId().getPath(),mcLoc("item/template_spawn_egg"));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){

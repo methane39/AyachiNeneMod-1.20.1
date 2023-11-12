@@ -14,6 +14,7 @@ import top.methane39.AyachiNene.block.ModBlock;
 import top.methane39.AyachiNene.item.ModItem;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -25,9 +26,9 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     @Override
-    protected void buildRecipes(RecipeOutput p_297267_) {
-        oreBlasting(p_297267_,DETONATOR_SMELTABLES,RecipeCategory.MISC,ModItem.DETONATOR_COMPONENT.get(),0.25f,100,"detonator_component");
-        oreSmelting(p_297267_,DETONATOR_SMELTABLES,RecipeCategory.MISC,ModItem.DETONATOR_COMPONENT.get(),0.25f,100,"detonator_component");
+    protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
+        oreBlasting(pWriter,DETONATOR_SMELTABLES,RecipeCategory.MISC,ModItem.DETONATOR_COMPONENT.get(),0.25f,100,"detonator_component");
+        oreSmelting(pWriter,DETONATOR_SMELTABLES,RecipeCategory.MISC,ModItem.DETONATOR_COMPONENT.get(),0.25f,100,"detonator_component");
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC,ModBlock.DETONATOR_BLOCK.get())
                 .pattern("SSS")
@@ -35,7 +36,7 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("SSS")
                 .define('S',ModItem.DETONATOR.get())
                 .unlockedBy(getHasName(ModItem.DETONATOR.get()),has(ModItem.DETONATOR.get()))
-                .save(p_297267_);
+                .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC,ModItem.DETONATOR.get())
                 .pattern("SSS")
@@ -44,28 +45,29 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('S',ModItem.DETONATOR_COMPONENT.get())
                 .define('A', Items.REDSTONE)
                 .unlockedBy(getHasName(ModItem.DETONATOR_COMPONENT.get()),has(ModItem.DETONATOR_COMPONENT.get()))
-                .save(p_297267_);
+                .save(pWriter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC,ModItem.DETONATOR.get(),9)
                 .requires(ModBlock.DETONATOR_BLOCK.get())
                 .unlockedBy(getHasName(ModBlock.DETONATOR_BLOCK.get()),has(ModBlock.DETONATOR_BLOCK.get()))
-                .save(p_297267_,"detonator_from_detonator_block");
+                .save(pWriter,"detonator_from_detonator_block");
     }
 
-    protected static void oreSmelting(RecipeOutput p_300202_, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {
-        oreCooking(p_300202_, RecipeSerializer.SMELTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTIme, pGroup, "_from_smelting");
+
+    protected static void oreSmelting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTIme, String pGroup) {
+        oreCooking(pFinishedRecipeConsumer, RecipeSerializer.SMELTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTIme, pGroup, "_from_smelting");
     }
 
-    protected static void oreBlasting(RecipeOutput p_298528_, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup) {
-        oreCooking(p_298528_, RecipeSerializer.BLASTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_blasting");
+    protected static void oreBlasting(Consumer<FinishedRecipe> pFinishedRecipeConsumer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup) {
+        oreCooking(pFinishedRecipeConsumer, RecipeSerializer.BLASTING_RECIPE, pIngredients, pCategory, pResult, pExperience, pCookingTime, pGroup, "_from_blasting");
     }
 
-    private static void oreCooking(RecipeOutput p_297621_, RecipeSerializer<? extends AbstractCookingRecipe> pCookingSerializer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
+    public static void oreCooking(Consumer<FinishedRecipe> pFinishedRecipeConsumer, RecipeSerializer<? extends AbstractCookingRecipe> pCookingSerializer, List<ItemLike> pIngredients, RecipeCategory pCategory, ItemLike pResult, float pExperience, int pCookingTime, String pGroup, String pRecipeName) {
         for(ItemLike itemlike : pIngredients) {
             SimpleCookingRecipeBuilder.generic(Ingredient.of(itemlike), pCategory, pResult,
                     pExperience, pCookingTime, pCookingSerializer).
                     group(pGroup).unlockedBy(getHasName(itemlike), has(itemlike))
-                    .save(p_297621_, AyachiNene.MODID +":"+getItemName(pResult)+pRecipeName + "_" + getItemName(itemlike));
+                    .save(pFinishedRecipeConsumer, AyachiNene.MODID +":"+getItemName(pResult)+pRecipeName + "_" + getItemName(itemlike));
         }
 
     }

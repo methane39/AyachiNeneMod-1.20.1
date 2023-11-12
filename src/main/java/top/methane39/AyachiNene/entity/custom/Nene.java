@@ -25,7 +25,7 @@ public class Nene extends Animal {
     public Nene(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
-    public final AnimationState walkAnimationState = new AnimationState();
+    private int onaniAnimationTimeOut = 0;
     public final AnimationState onaniAnimationState = new AnimationState();
 
     @Override
@@ -33,13 +33,18 @@ public class Nene extends Animal {
         super.tick();
 
         if(this.level().isClientSide){
-
+            setupAnimationStates();
         }
     }
 
 
     private void setupAnimationStates(){
-
+        if(this.onaniAnimationTimeOut<=0){
+            this.onaniAnimationTimeOut = this.random.nextInt(40)+80;
+            this.onaniAnimationState.start(this.tickCount);
+        }else{
+            --this.onaniAnimationTimeOut;
+        }
     }
 
     @Override

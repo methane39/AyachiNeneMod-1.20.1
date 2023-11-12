@@ -5,24 +5,26 @@ package top.methane39.AyachiNene.entity.client;// Made with Blockbench 4.8.3
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import top.methane39.AyachiNene.entity.animations.ModAnimationDefinitions;
+import top.methane39.AyachiNene.entity.custom.Nene;
 
 public class NeneModel<T extends Entity> extends HierarchicalModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "0.0.1"), "main");
-	private final ModelPart Nene;
+	private final ModelPart nene;
 	private final ModelPart Head;
 
 	public NeneModel(ModelPart root) {
-		this.Nene = root.getChild("Nene");
-		this.Head = Nene.getChild("head");
+		this.nene = root.getChild("Nene");
+		this.Head = nene.getChild("head");
 	}
 
 	public static LayerDefinition createBodyLayer() {
@@ -48,16 +50,27 @@ public class NeneModel<T extends Entity> extends HierarchicalModel<T> {
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.root().getAllParts().forEach(ModelPart::resetPose);
+		this.applyHeadRotation(netHeadYaw,headPitch,ageInTicks);
 
+		this.animateWalk(ModAnimationDefinitions.MODEL_WALK,limbSwing,limbSwingAmount,2f,2.5f);
+//		this.animate(((Nene)entity).onaniAnimationState,ModAnimationDefinitions.MODEL_ONANI,ageInTicks,1f);
+	}
+	private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks){
+		pNetHeadYaw = Mth.clamp(pNetHeadYaw,-30.0F,30.0F);
+		pHeadPitch = Mth.clamp(pHeadPitch,-25.0F,45.0F);
+
+		this.Head.yRot = pNetHeadYaw*((float) Math.PI/180F);
+		this.Head.xRot = pHeadPitch*((float) Math.PI/180F);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		Nene.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		nene.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	@Override
 	public ModelPart root() {
-		return Nene;
+		return nene;
 	}
 }

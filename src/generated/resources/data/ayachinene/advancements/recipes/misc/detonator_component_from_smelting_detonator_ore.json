@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_detonator_ore"
+      "has_detonator_ore",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
