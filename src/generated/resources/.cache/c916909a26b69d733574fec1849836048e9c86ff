@@ -1,0 +1,5 @@
+// 1.20.2	2023-11-11T20:31:47.3327062	Tags for minecraft:block mod id ayachinene
+cce026abcbc96a42d96f4ed7c41719a682d9036f data/ayachinene/tags/blocks/detonator_valuables.json
+1203e6f8e7ac4c15eb27431d14a2fee9a0830311 data/forge/tags/blocks/needs_netherite_tool.json
+cce026abcbc96a42d96f4ed7c41719a682d9036f data/minecraft/tags/blocks/mineable/pickaxe.json
+d4bf6059d228ab35f6756c1e4d283f84917532de data/minecraft/tags/blocks/needs_iron_tool.json

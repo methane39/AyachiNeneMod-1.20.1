@@ -1,0 +1,13 @@
+{
+  "item.ayachinene.detonator_component": "Component of Detonator",
+  "item.ayachinene.detonator": "Detonator",
+  "item.ayachinene.ramen": "Noodles cooked al dente,extra Pickles,double Garlic and extra Oil",
+  "item.ayachinene.kokoro_kakera": "Fragments of Heart",
+
+  "tooltips.ayachinene.detonator.tooltip": "Explode all Nenes AROUND you!",
+
+  "block.ayachinene.detonator_block": "Block of Detonator",
+  "block.ayachinene.detonator_ore": "Detonator Ore",
+  "creativetab.ayachinene_tab": "AyachiNene Mod"
+
+}

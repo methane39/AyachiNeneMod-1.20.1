@@ -1,0 +1,20 @@
+{
+  "onani":{
+    "subtitle": "onani",
+    "sounds": [
+      "ayachinene:onani"
+    ]
+  },
+  "ciallo": {
+    "subtitle": "ciallo",
+    "sounds": [
+      "ayachinene:ciallo"
+    ]
+  },
+  "nene_dead": {
+    "subtitle": "nene_dead",
+    "sounds": [
+      "ayachinene:nene_dead"
+    ]
+  }
+}

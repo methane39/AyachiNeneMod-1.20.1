@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_detonator_ore": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ayachinene:detonator_ore"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "ayachinene:detonator_component_from_blasting_detonator_ore"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_detonator_ore"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "ayachinene:detonator_component_from_blasting_detonator_ore"
+    ]
+  },
+  "sends_telemetry_event": false
+}

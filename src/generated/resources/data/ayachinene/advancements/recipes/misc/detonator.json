@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_detonator_component": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ayachinene:detonator_component"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "ayachinene:detonator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_detonator_component"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "ayachinene:detonator"
+    ]
+  },
+  "sends_telemetry_event": false
+}
